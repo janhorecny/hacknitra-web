@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Receptúra by GALTON · smer B Farebné pole (BRAND.md) */
+:root {
+  --ovos: #f4f1ea;
+  --smrek: #14231c;
+  --citron: #efe04b;
+  --prazenica: #7a3b22;
+  --korka: #e2c597;
+  --sivá: #d5dadc;
+  --field: var(--citron);
+  --ink: var(--smrek);
+  --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --gutter: clamp(18px, 3vw, 48px);
+}
+
+@theme inline {
+  --color-ovos: var(--ovos);
+  --color-smrek: var(--smrek);
+  --color-citron: var(--citron);
+  --color-prazenica: var(--prazenica);
+  --color-korka: var(--korka);
+  --color-siva: var(--sivá);
+  --color-field: var(--field);
+  --color-ink: var(--ink);
+  --font-sans: var(--font-ranade);
+  --font-display: var(--font-chubbo);
+}
+
+html { background: var(--field); transition: background-color 0.9s var(--ease-out); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+body {
+  background: transparent;
+  color: var(--ink);
+  transition: color 0.9s var(--ease-out);
+  font-family: var(--font-ranade), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+::selection { background: var(--smrek); color: var(--citron); }
+
+.display { font-family: var(--font-chubbo); font-weight: 700; letter-spacing: -0.045em; line-height: 0.88; }
+.wordmark { font-family: var(--font-cabinet); font-weight: 800; letter-spacing: -0.045em; line-height: 0.9; }
+.display-m { font-family: var(--font-chubbo); font-weight: 500; letter-spacing: -0.035em; line-height: 0.95; }
+.eyebrow { font-family: var(--font-ranade); font-weight: 500; font-size: 13px; letter-spacing: 0.09em; text-transform: uppercase; }
+.caps { text-transform: uppercase; letter-spacing: -0.02em; line-height: 0.96; }
+.navlink { font-weight: 500; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
+.g-on-dark { display: none; }
+html[data-dark="1"] .g-on-dark { display: block; }
+html[data-dark="1"] .g-on-light { display: none; }
+.wrap { width: 100%; padding-left: var(--gutter); padding-right: var(--gutter); }
+.rule { border-color: var(--ink); transition: border-color 0.9s var(--ease-out); }
+
+.grain {
+  position: absolute; inset: -50%; pointer-events: none; opacity: 0.045;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 1s steps(5) infinite;
+}
+@keyframes grain {
+  0% { transform: translate(0, 0); } 25% { transform: translate(-2%, 3%); }
+  50% { transform: translate(3%, -2%); } 75% { transform: translate(-3%, -3%); } 100% { transform: translate(0, 0); }
+}
+
+@keyframes belt { to { transform: translate3d(-50%, 0, 0); } }
+.belt { animation: belt var(--dur, 60s) linear infinite; }
+.belt-wrap:hover .belt { animation-play-state: paused; }
+
+.draw { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1.5px no-repeat; transition: background-size .6s var(--ease-expo); }
+.draw:hover { background-size: 100% 1.5px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
